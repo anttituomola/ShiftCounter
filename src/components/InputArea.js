@@ -8,7 +8,8 @@ export default class InputArea extends Component {
         this.state = {
             startDate: Date,
             startTime: "",
-            endTime: ""
+            endTime: "",
+            shifts: []
         }
         this.getInputValues = this.getInputValues.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,19 +19,26 @@ export default class InputArea extends Component {
         let startDate = new Date(dayjs(this.state.startDate))
         let startTime = new Date(dayjs(startDate).hour(this.state.startTime.split(":")[0]).minute(this.state.startTime.split(":")[1]))
         let endTime = new Date(dayjs(startDate).hour(this.state.endTime.split(":")[0]).minute(this.state.endTime.split(":")[1]))
+        const hours = dayjs(endTime).diff(dayjs(startTime), "hours", true)
+        const aShift = {
+            date: startDate,
+            hours: hours
+        }
         this.setState({
             startDate: startDate,
             startTime: startTime,
-            endTime: endTime
+            endTime: endTime,
+            shifts: [...this.state.shifts, aShift]
         })
-        console.log(this.state)
+
     }
 
     getInputValues(event) {
-       let value = event.target.value
-       this.setState({
-           ...this.state, 
-           [event.target.name]: value})
+        let value = event.target.value
+        this.setState({
+            ...this.state,
+            [event.target.name]: value
+        })
     }
 
     render() {
