@@ -9,30 +9,20 @@ export default class InputArea extends Component {
             startDate: Date,
             startTime: "",
             endTime: "",
-            shifts: []
-        }
+          }
         this.getInputValues = this.getInputValues.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    //convert to date objects, send to App
     handleSubmit() {
         let startDate = new Date(dayjs(this.state.startDate))
         let startTime = new Date(dayjs(startDate).hour(this.state.startTime.split(":")[0]).minute(this.state.startTime.split(":")[1]))
         let endTime = new Date(dayjs(startDate).hour(this.state.endTime.split(":")[0]).minute(this.state.endTime.split(":")[1]))
-        const hours = dayjs(endTime).diff(dayjs(startTime), "hours", true)
-        const aShift = {
-            date: startDate,
-            hours: hours
-        }
-        this.setState({
-            startDate: startDate,
-            startTime: startTime,
-            endTime: endTime,
-            shifts: [...this.state.shifts, aShift]
-        })
-
+        this.props.updateState(startDate, startTime, endTime)
     }
 
+    //update input values to state
     getInputValues(event) {
         let value = event.target.value
         this.setState({
