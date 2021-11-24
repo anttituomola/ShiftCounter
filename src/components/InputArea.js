@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import "../index.css"
+import { DatePicker, Calendar } from 'react-dayjs-picker'
+import 'react-dayjs-picker/dist/index.css'
 var dayjs = require('dayjs')
 
 
@@ -7,12 +9,15 @@ export default class InputArea extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            startDate: dayjs().format("YYYY-MM-DD"),
+            startDate: dayjs(),
             startTime: dayjs().hour(12).minute(0).format("HH:mm"),
             endTime: dayjs().hour(19).minute(30).format("HH:mm"),
+            calendarOpen: false
         }
         this.getInputValues = this.getInputValues.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.updatePickerValue = this.updatePickerValue.bind(this)
+        this.calendarOpen = this.calendarOpen.bind(this)
     }
 
     //convert to date objects, send to App
@@ -36,10 +41,24 @@ export default class InputArea extends Component {
         })
     }
 
+    //I needed to do another function for the date picker, as the one above didn't work for it
+    updatePickerValue(date) {
+        this.setState({
+            startDate: date
+        })
+    }
+
+    //toggle the visibility of the calendar
+    calendarOpen() {
+        this.setState(prevState => ({
+            calendarOpen: !prevState.calendarOpen
+        }))
+    }
+
     render() {
         return (
             <div id="inputArea">
-                <input id="inputDateEl" defaultValue={this.state.startDate} autoFocus name="startDate" onChange={this.getInputValues} type="date" />
+                <DatePicker date={this.state.startDate} isOpen={this.state.calendarOpen} setIsOpen={this.calendarOpen} closeOnSelect={true} name="startDate" onSelect={(date) => this.updatePickerValue(date)}/>
                 <div id="timeInputElements">
                     <input id="inputStartTimeEl" defaultValue={this.state.startTime} name="startTime" onChange={this.getInputValues} type="time" />
                     <input id="inputEndTimeEl" defaultValue={this.state.endTime} name="endTime" onChange={this.getInputValues} type="time" />
