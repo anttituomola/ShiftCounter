@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "../index.css"
 var dayjs = require('dayjs')
 
 
@@ -21,9 +22,9 @@ export default class InputArea extends Component {
         let endTime = new Date(dayjs(startDate).hour(this.state.endTime.split(":")[0]).minute(this.state.endTime.split(":")[1]))
         this.props.updateState(startDate, startTime, endTime)
         //This doesn't work yet: the input field does not update the visible value
-        /* this.setState({
+        this.setState({
             startDate: dayjs(startDate).add(1, "day")
-        }) */
+        })
     }
 
     //update input values to state
@@ -39,8 +40,10 @@ export default class InputArea extends Component {
         return (
             <div id="inputArea">
                 <input id="inputDateEl" defaultValue={this.state.startDate} autoFocus name="startDate" onChange={this.getInputValues} type="date" />
-                <input id="inputStartTimeEl" defaultValue={this.state.startTime} name="startTime" onChange={this.getInputValues} type="time" />
-                <input id="inputEndTimeEl" defaultValue={this.state.endTime} name="endTime" onChange={this.getInputValues} type="time" />
+                <div id="timeInputElements">
+                    <input id="inputStartTimeEl" defaultValue={this.state.startTime} name="startTime" onChange={this.getInputValues} type="time" />
+                    <input id="inputEndTimeEl" defaultValue={this.state.endTime} name="endTime" onChange={this.getInputValues} type="time" />
+                </div>
                 <button id="submitButton" onClick={this.handleSubmit}>ADD SHIFT</button>
             </div>
         )

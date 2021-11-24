@@ -1,0 +1,55 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #F6F4F3;
+    border-radius: 15px;
+    padding: 30px 10px;
+}
+
+#inputArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.shiftRow {
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 8px;
+    background-color: lavender;
+}
+
+.shiftRow:hover {
+    background-color: #DDDDF8;
+}
+
+#timeInputElements {
+    margin: 1em 0 1em 0;
+}
+
+#submitButton {
+    border: none;
+    padding: 1em;
+    background-color: lightblue;
+    border-radius: 3px;
+    cursor: pointer;
+
+}
+
+#submitButton:hover {
+    background-color: lightskyblue;
+    cursor: pointer;
+}
+
+#submitButton:active {
+    transform: scale(0.95);    
+}

@@ -1,6 +1,7 @@
 import InputArea from "./components/InputArea";
 import RenderArea from "./components/RenderArea";
 import React, { Component } from "react";
+import "./index.css"
 var dayjs = require('dayjs')
 
 
