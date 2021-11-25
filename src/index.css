@@ -58,3 +58,12 @@
 #submitButton:active {
     transform: scale(0.95);    
 }
+
+#siteTitle {
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.deleteIcon {
+    padding: 1em;
+}

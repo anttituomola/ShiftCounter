@@ -55,6 +55,7 @@ export default class InputArea extends Component {
         }))
     }
 
+    //listen for Enter key
     listenForEnter(event) {
         if(event.key === "Enter") {
             this.handleSubmit()
@@ -64,6 +65,7 @@ export default class InputArea extends Component {
     render() {
         return (
             <div id="inputArea">
+                <h1 id="siteTitle">Shift logger</h1>
                 <DatePicker 
                     date={this.state.startDate} 
                     isOpen={this.state.calendarOpen} 
