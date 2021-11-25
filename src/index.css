@@ -20,6 +20,7 @@
 
 
 .shiftRow {
+    display: flex;
     align-items: center;
     justify-content: center;
     margin: 1em;
@@ -30,6 +31,10 @@
 
 .shiftRow:hover {
     background-color: #DDDDF8;
+}
+
+.shiftDateText {
+    margin-right: 1em;
 }
 
 #timeInputElements {

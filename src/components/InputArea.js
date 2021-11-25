@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "../index.css"
-import { DatePicker, Calendar } from 'react-dayjs-picker'
+import { DatePicker } from 'react-dayjs-picker'
 import 'react-dayjs-picker/dist/index.css'
 var dayjs = require('dayjs')
 
@@ -18,6 +18,7 @@ export default class InputArea extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.updatePickerValue = this.updatePickerValue.bind(this)
         this.calendarOpen = this.calendarOpen.bind(this)
+        this.listenForEnter = this.listenForEnter.bind(this)
     }
 
     //convert to date objects, send to App
@@ -26,7 +27,6 @@ export default class InputArea extends Component {
         let startTime = new Date(dayjs(startDate).hour(this.state.startTime.split(":")[0]).minute(this.state.startTime.split(":")[1]))
         let endTime = new Date(dayjs(startDate).hour(this.state.endTime.split(":")[0]).minute(this.state.endTime.split(":")[1]))
         this.props.updateState(startDate, startTime, endTime)
-        //This doesn't work yet: the input field does not update the visible value
         this.setState({
             startDate: dayjs(startDate).add(1, "day")
         })
@@ -55,13 +55,26 @@ export default class InputArea extends Component {
         }))
     }
 
+    listenForEnter(event) {
+        if(event.key === "Enter") {
+            this.handleSubmit()
+        }
+    }
+
     render() {
         return (
             <div id="inputArea">
-                <DatePicker date={this.state.startDate} isOpen={this.state.calendarOpen} setIsOpen={this.calendarOpen} closeOnSelect={true} name="startDate" onSelect={(date) => this.updatePickerValue(date)}/>
+                <DatePicker 
+                    date={this.state.startDate} 
+                    isOpen={this.state.calendarOpen} 
+                    setIsOpen={this.calendarOpen} 
+                    closeOnSelect={true} 
+                    name="startDate" 
+                    onSelect={(date) => this.updatePickerValue(date)} 
+                />
                 <div id="timeInputElements">
-                    <input id="inputStartTimeEl" defaultValue={this.state.startTime} name="startTime" onChange={this.getInputValues} type="time" />
-                    <input id="inputEndTimeEl" defaultValue={this.state.endTime} name="endTime" onChange={this.getInputValues} type="time" />
+                    <input id="inputStartTimeEl" defaultValue={this.state.startTime} name="startTime" onChange={this.getInputValues} type="time" onKeyPress={this.listenForEnter}/>
+                    <input id="inputEndTimeEl" defaultValue={this.state.endTime} name="endTime" onChange={this.getInputValues} type="time" onKeyPress={this.listenForEnter}/>
                 </div>
                 <button id="submitButton" onClick={this.handleSubmit}>ADD SHIFT</button>
             </div>

@@ -32,6 +32,10 @@ export default class App extends Component {
     })
   }
 
+  deleteShift(index) {
+    console.log(index)
+  }
+
   render() {
     return (
       <div className="App">
